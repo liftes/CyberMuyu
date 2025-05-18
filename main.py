@@ -73,6 +73,7 @@ class MuyuApp:
         self.listener.start()
 
         self.update_time()
+        self.periodic_save()
 
         self.master.protocol("WM_DELETE_WINDOW", self.on_close)
         self.tray_icon = None
@@ -139,6 +140,10 @@ class MuyuApp:
         self.animate_hit()
         if self.info_visible:
             self.update_info()
+
+    def periodic_save(self):
+        self.save_cache()
+        self.master.after(600000, self.periodic_save)  # 每600000毫秒，即10分钟调用一次
 
     # def animate_hit(self):
     #     self.muyu_label.config(image=self.image_hit)
